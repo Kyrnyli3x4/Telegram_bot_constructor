@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Chat from './components/Chat';
+import CommandEditor from './components/CommandEditor';
+import ButtonEditor from './components/ButtonEditor';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [activeTab, setActiveTab] = useState('commands');
+
+    return (
+        <div className="App">
+            <div className="editor-pane">
+                <div className="tab-buttons">
+                    <button onClick={() => setActiveTab('commands')} className={activeTab === 'commands' ? 'active' : ''}>
+                        Commands
+                    </button>
+                    <button onClick={() => setActiveTab('buttons')} className={activeTab === 'buttons' ? 'active' : ''}>
+                        Buttons
+                    </button>
+                </div>
+                {activeTab === 'commands' ? <CommandEditor /> : <ButtonEditor />}
+            </div>
+            <div className="chat-pane">
+                <Chat />
+            </div>
+        </div>
+    );
 }
 
 export default App;
